@@ -1,20 +1,25 @@
 const sql = require('mssql');
 
 const config = {
-    server: '',
-    database: '',
-    user: '',
-    password: '',
+    server: 'localhost',
+    database: 'crud_microservices',
+    user: 'sa',
+    password: '123456789',
+    options: {
+        trustServerCertificate: true
+    }
 };
 
 const pool = new sql.ConnectionPool(config);
 
-pool.connect(err => {
-    if (err) {
-        console.error('Error connecting to database:', err);
-    } else {
-        console.log('Connected to database');
+async function connectToDatabase() {
+    try {
+      const poolConnect = await pool.connect();
+      console.log('Conexión exitosa a la base de datos');
+    } catch (err) {
+      console.error('Error al conectar a la base de datos:', err.message);
     }
-});
+}
 
-module.exports = pool;
+
+module.exports = {pool, connectToDatabase};

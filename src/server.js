@@ -14,7 +14,7 @@ app.use(express.urlencoded({extended: false}));
 app.use(express.json());
 
 // Routes
-app.use('/api/task', customerRoutes);
+app.use('/api', customerRoutes);
 
 // Starting the server
 const port = 3000;
