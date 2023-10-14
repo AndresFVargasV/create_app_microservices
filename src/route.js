@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const insertarPersona = require('./create');
+const insertarPersona = require('./create.js');
 
 router.get('/', (req, res) => {
     res.json({
@@ -33,19 +33,19 @@ router.post('/createpeople', async (req, res) => {
             tipo_documento_id,
             foto);
 
-        if (result) {
+        if (result === true) {
             res.json({
                 "Res": "People added successful"
             });
-        } else if (result === null) {
+        } else {
             res.json({
                 "Res": "People added failed"
             });
         }
     } catch (err) {
-        console.error('Error al verificar el inicio de sesión:', err.message);
+        console.error('Error al insertar datos:', err.message);
         res.json({
-            "Res": "Login failed"
+            "Res": "People added failed"
         });
     }
 });

@@ -1,4 +1,4 @@
-const {pool, connectToDatabase} = require('./dbconfig');    
+const {pool, connectToDatabase, sql} = require('./dbconfig');    
 
 async function insertarPersona(
     primer_nombre,
@@ -35,17 +35,17 @@ async function insertarPersona(
 
         console.log('Datos insertados correctamente:', result);
 
-        if (result.recordset.length === 1) {      
-            return True;
+        if (result.rowsAffected[0] === 1) {      
+            return true;
           } else {
-            return False;
+            return false;
           }
 
     } catch (error) {
-        console.error('Error al insertar datos:', error);
+        console.error('Error al insertar datos o al conectarse con la BD', error);
     } finally {
         pool.close();
     }
 }
 
-module.exports = {insertarPersona};
+module.exports = insertarPersona;

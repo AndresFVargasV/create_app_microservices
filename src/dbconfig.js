@@ -22,4 +22,4 @@ async function connectToDatabase() {
 }
 
 
-module.exports = {pool, connectToDatabase};
+module.exports = {pool, connectToDatabase, sql};
