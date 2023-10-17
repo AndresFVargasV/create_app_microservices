@@ -1,4 +1,5 @@
 const {pool, connectToDatabase, sql} = require('./dbconfig');    
+const fs = require('fs');
 
 async function insertarPersona(
     primer_nombre,
@@ -16,6 +17,10 @@ async function insertarPersona(
         // Conecta al pool de conexiones
         await connectToDatabase();
 
+        console.log('foto', foto);
+
+        const fotoBuffer = fs.readFileSync(foto);
+
         // Realiza la inserción en la tabla Personas
         const result = await pool.request()
             .input('primer_nombre', sql.VarChar(30), primer_nombre)
@@ -27,7 +32,7 @@ async function insertarPersona(
             .input('celular', sql.VarChar(10), celular)
             .input('numero_documento', sql.VarChar(10), numero_documento)
             .input('tipo_documento_id', sql.Int, tipo_documento_id)
-            .input('foto', sql.VarBinary(sql.MAX), foto)
+            .input('foto', sql.VarBinary(sql.MAX), fotoBuffer)
             .query(`
                 INSERT INTO Personas (primer_nombre, segundo_nombre, apellidos, fecha_nacimiento, genero_id, correo_electronico, celular, numero_documento, tipo_documento_id, foto)
                 VALUES (@primer_nombre, @segundo_nombre, @apellidos, @fecha_nacimiento, @genero_id, @correo_electronico, @celular, @numero_documento, @tipo_documento_id, @foto)
