@@ -10,8 +10,8 @@ Este repositorio contiene una API de inserción/creación de personas desarrolla
 
 1. Clonar el repositorio: Clona este repositorio en tu máquina local.
      ```bash
-     https://github.com/AndresFVargasV/create_app_microservices/
-3. Instalar Dependencias: Navega al directorio del proyecto e instala las dependencias necesarias.
+     git clone https://github.com/AndresFVargasV/create_app_microservices.git
+3. Instalar Dependencias: Navega al directorio del proyecto en tu computador e instala las dependencias necesarias.
      ```bash
      npm install
 4. Configurar la Base de Datos: Asegúrate de configurar tu base de datos SQL Server y ajustar la configuración de conexión en la carpeta dbconfig.js.
