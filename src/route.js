@@ -44,13 +44,12 @@ router.post('/createpeople', cors(), upload.single('foto'), async (req, res) => 
                 });
             } else {
                 res.json({
-                    "Res": "People added failed"
+                    "Res": "People added failed. There was an issue inserting data into the database."
                 });
             }
     } catch (err) {
-        console.error('Error al insertar datos:', err.message);
         res.json({
-            "Res": "People added failed"
+            "Res": "People added failed. There was an issue getting data from the form."
         });
     }
 });
