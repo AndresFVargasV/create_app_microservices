@@ -17,9 +17,7 @@ async function insertarPersona(
         // Conecta al pool de conexiones
         await connectToDatabase();
 
-        console.log('foto', foto);
-
-        const fotoBuffer = fs.readFileSync(foto);
+        console.log('Foto path', foto.path)
 
         // Realiza la inserción en la tabla Personas
         const result = await pool.request()
@@ -30,9 +28,9 @@ async function insertarPersona(
             .input('genero_id', sql.Int, genero_id)
             .input('correo_electronico', sql.VarChar(50), correo_electronico)
             .input('celular', sql.VarChar(10), celular)
-            .input('numero_documento', sql.VarChar(10), numero_documento)
+            .input('numero_documento', sql.VarChar(20), numero_documento)
             .input('tipo_documento_id', sql.Int, tipo_documento_id)
-            .input('foto', sql.VarBinary(sql.MAX), fotoBuffer)
+            .input('foto', sql.VarBinary(sql.MAX), foto.buffer)
             .query(`
                 INSERT INTO Personas (primer_nombre, segundo_nombre, apellidos, fecha_nacimiento, genero_id, correo_electronico, celular, numero_documento, tipo_documento_id, foto)
                 VALUES (@primer_nombre, @segundo_nombre, @apellidos, @fecha_nacimiento, @genero_id, @correo_electronico, @celular, @numero_documento, @tipo_documento_id, @foto)

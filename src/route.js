@@ -1,6 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const insertarPersona = require('./create.js');
+const cors = require('cors');
+const multer = require('multer');
+const upload = multer({ dest: '../uploads' });
+
 
 router.get('/', (req, res) => {
     res.json({
@@ -8,7 +12,7 @@ router.get('/', (req, res) => {
     });
 });
 
-router.post('/createpeople', async (req, res) => {
+router.post('/createpeople', cors(), upload.single('foto'), async (req, res) => {
     const {
         primer_nombre,
         segundo_nombre,
@@ -18,8 +22,10 @@ router.post('/createpeople', async (req, res) => {
         correo_electronico,
         celular,
         numero_documento,
-        tipo_documento_id,
-        foto} = req.body;
+        tipo_documento_id} = req.body;
+
+    const foto = req.file;
+    console.log(foto);
 
     try {
         const result = await insertarPersona(primer_nombre,
@@ -33,15 +39,15 @@ router.post('/createpeople', async (req, res) => {
             tipo_documento_id,
             foto);
 
-        if (result === true) {
-            res.json({
-                "Res": "People added successful"
-            });
-        } else {
-            res.json({
-                "Res": "People added failed"
-            });
-        }
+            if (result === true) {
+                res.json({
+                    "Res": "People added successful"
+                });
+            } else {
+                res.json({
+                    "Res": "People added failed"
+                });
+            }
     } catch (err) {
         console.error('Error al insertar datos:', err.message);
         res.json({
