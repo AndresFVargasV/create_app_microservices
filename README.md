@@ -1,5 +1,5 @@
 # Create Module - APP with microservices
-Este repositorio contiene una API de gestión de personas desarrollada en Node.js con Express y Microsoft SQL Server. La API permite agregar información de personas, incluyendo una foto, a una base de datos.
+Este repositorio contiene una API de inserción/creación de personas desarrollada en Node.js con Express y Microsoft SQL Server. La API permite agregar información de personas, incluyendo una foto, a una base de datos.
 
 ## Descripción
 
