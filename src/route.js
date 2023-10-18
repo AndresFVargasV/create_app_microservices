@@ -25,7 +25,6 @@ router.post('/createpeople', cors(), upload.single('foto'), async (req, res) => 
         tipo_documento_id} = req.body;
 
     const foto = req.file;
-    console.log(foto);
 
     try {
         const result = await insertarPersona(primer_nombre,

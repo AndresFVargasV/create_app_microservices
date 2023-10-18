@@ -17,8 +17,6 @@ async function insertarPersona(
         // Conecta al pool de conexiones
         await connectToDatabase();
 
-        console.log('Foto path', foto.path)
-
         // Realiza la inserción en la tabla Personas
         const result = await pool.request()
             .input('primer_nombre', sql.VarChar(30), primer_nombre)
