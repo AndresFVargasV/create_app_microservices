@@ -1,5 +1,4 @@
 const {pool, connectToDatabase, sql} = require('./dbconfig');    
-const fs = require('fs');
 
 async function insertarPersona(
     primer_nombre,
@@ -34,8 +33,6 @@ async function insertarPersona(
                 VALUES (@primer_nombre, @segundo_nombre, @apellidos, @fecha_nacimiento, @genero_id, @correo_electronico, @celular, @numero_documento, @tipo_documento_id, @foto)
             `);
 
-        console.log('Datos insertados correctamente:', result);
-
         if (result.rowsAffected[0] === 1) {      
             return true;
           } else {
@@ -43,7 +40,7 @@ async function insertarPersona(
           }
 
     } catch (error) {
-        console.error('Error al insertar datos o al conectarse con la BD', error);
+        return false
     } finally {
         pool.close();
     }
