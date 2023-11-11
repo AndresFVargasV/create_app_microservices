@@ -13,6 +13,8 @@ async function insertarPersona(
     foto
 ) {
     try {
+
+        console.log(foto)
         // Conecta al pool de conexiones
         await connectToDatabase();
 
@@ -27,7 +29,7 @@ async function insertarPersona(
             .input('celular', sql.VarChar(10), celular)
             .input('numero_documento', sql.VarChar(20), numero_documento)
             .input('tipo_documento_id', sql.Int, tipo_documento_id)
-            .input('foto', sql.VarBinary(sql.MAX), foto.buffer)
+            .input('foto', sql.VarBinary(sql.MAX), foto)
             .query(`
                 INSERT INTO Personas (primer_nombre, segundo_nombre, apellidos, fecha_nacimiento, genero_id, correo_electronico, celular, numero_documento, tipo_documento_id, foto)
                 VALUES (@primer_nombre, @segundo_nombre, @apellidos, @fecha_nacimiento, @genero_id, @correo_electronico, @celular, @numero_documento, @tipo_documento_id, @foto)
