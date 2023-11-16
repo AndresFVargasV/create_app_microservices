@@ -1,24 +1,18 @@
-const sql = require('mssql');
+const MongoClient = require('mongodb').MongoClient;
 
-const config = {
-    server: 'localhost',
-    database: 'crud_microservices',
-    user: 'sa',
-    password: '123456789',
-    options: {
-        trustServerCertificate: true
-    }
-};
+// URL de conexión a tu base de datos MongoDB, incluyendo nombre de usuario y contraseña
+const url = 'mongodb://localhost:27017/crud';
 
-const pool = new sql.ConnectionPool(config);
-
+// Exportar una función que devuelve la conexión una vez establecida
 async function connectToDatabase() {
-    try {
-      const poolConnect = await pool.connect();
-    } catch (err) {
-      console.error('Error al conectar a la base de datos:', err.message);
-    }
+  try {
+    const client = await MongoClient.connect(url);
+    console.log('Conexión a MongoDB establecida correctamente');
+    return client;
+  } catch (err) {
+    console.error('Error al conectar a MongoDB:', err);
+    throw err; // Propagar el error para que sea manejado en el módulo que utiliza esta función
+  }
 }
 
-
-module.exports = {pool, connectToDatabase, sql};
+module.exports = { connectToDatabase };

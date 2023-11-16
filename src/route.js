@@ -2,10 +2,6 @@ const express = require('express');
 const router = express.Router();
 const insertarPersona = require('./create.js');
 const cors = require('cors');
-const multer = require('multer');
-const upload = multer({ dest: '../uploads' });
-const axios = require('axios');
-const FormData = require('form-data');
 
 
 router.get('/', (req, res) => {
@@ -14,7 +10,7 @@ router.get('/', (req, res) => {
     });
 });
 
-router.post('/createpeople', cors(), upload.single('foto'), async (req, res) => {
+router.post('/createpeople', cors(), async (req, res) => {
     const {
         primer_nombre,
         segundo_nombre,
@@ -26,20 +22,9 @@ router.post('/createpeople', cors(), upload.single('foto'), async (req, res) => 
         numero_documento,
         tipo_documento_id} = req.body;
 
+    console.log(req.body);
+
     const foto = req.file;
-    
-    // Realiza la solicitud POST enviando el contenido del archivo directamente desde `req.file.buffer`
-    axios.post(urlDestino, archivo.buffer, {
-        headers: {
-        'Content-Type': archivo.mimetype  // Utiliza el tipo de contenido proporcionado por multer
-        }
-    })
-    .then(response => {
-      console.log('Archivo enviado exitosamente:', response.data);
-    })
-    .catch(error => {
-      console.error('Error al enviar el archivo:', error);
-    });
 
     try {
         const result = await insertarPersona(primer_nombre,
@@ -59,12 +44,13 @@ router.post('/createpeople', cors(), upload.single('foto'), async (req, res) => 
                 });
             } else {
                 res.json({
-                    "Res": "People added failed. There was an issue inserting data into the database."
+                    "Res": "People added failed"
                 });
             }
     } catch (err) {
+        console.error('Error al insertar datos:', err.message);
         res.json({
-            "Res": "People added failed. There was an issue getting data from the form."
+            "Res": "People added failed"
         });
     }
 });
