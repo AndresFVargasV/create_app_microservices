@@ -9,7 +9,7 @@ async function insertarPersona(
     correo_electronico,
     celular,
     numero_documento,
-    tipo_documento_id,
+    tipo_documento,
     foto
 ) {
 
@@ -35,7 +35,7 @@ async function insertarPersona(
             correo_electronico,
             celular,
             numero_documento,
-            tipo_documento_id,
+            tipo_documento,
             foto: foto.buffer
         };
 
@@ -51,6 +51,9 @@ async function insertarPersona(
         }
     } catch (error) {
         console.error('Error al insertar datos o al conectarse con la BD', error);
+        res.status(503).json({
+            "res": "Error"
+        });
     } finally {
         // Cerrar la conexión con MongoDB
         if (client) {

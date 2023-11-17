@@ -23,7 +23,7 @@ router.post('/createpeople', cors(), upload.single('foto'), async (req, res) => 
         correo_electronico,
         celular,
         numero_documento,
-        tipo_documento_id } = req.body;
+        tipo_documento } = req.body;
 
     const foto = req.file;
 
@@ -36,22 +36,22 @@ router.post('/createpeople', cors(), upload.single('foto'), async (req, res) => 
             correo_electronico,
             celular,
             numero_documento,
-            tipo_documento_id,
+            tipo_documento,
             foto);
 
         if (result === true) {
-            res.json({
-                "Res": "People added successful"
+            res.status(200).json({
+                "res": "People added successful"
             });
         } else {
-            res.json({
-                "Res": "People added failed"
+            res.estatus(503).json({
+                "res": "People added failed"
             });
         }
     } catch (err) {
         console.error('Error al insertar datos:', err.message);
-        res.json({
-            "Res": "People added failed"
+        res.status(503).json({
+            "res": "People added failed"
         });
     }
 });
