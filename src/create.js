@@ -36,7 +36,7 @@ async function insertarPersona(
             celular,
             numero_documento,
             tipo_documento,
-            foto: foto.buffer
+            foto: foto.buffer.toString('base64')
         };
 
         // Insertar el documento en la colección
