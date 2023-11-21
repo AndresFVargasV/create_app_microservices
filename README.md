@@ -1,5 +1,5 @@
 # Create Module - APP with microservices
-Este repositorio contiene una API de inserción/creación de personas desarrollada en Node.js con Express y Microsoft SQL Server. La API permite agregar información de personas, incluyendo una foto, a una base de datos.
+Este repositorio contiene una API de inserción/creación de personas desarrollada en Node.js con Express y MongoDB. La API permite agregar información de personas, incluyendo una foto, a una base de datos.
 
 ## Descripción
 
@@ -28,5 +28,10 @@ Este repositorio contiene una API de inserción/creación de personas desarrolla
 ## Notas Importantes
 
 - Esta API utiliza el middleware CORS para permitir solicitudes desde dominios cruzados en la ruta de creación de personas.
-- Asegúrate de que la base de datos esté configurada correctamente y que los nombres de las tablas y columnas coincidan con la estructura definida en el código.
+- Asegúrate de que la base de datos esté configurada correctamente y que el nombre de la BD y la Colección en MongoDB sean las mismas.
 - La subida de archivos a través de esta API requiere la configuración adecuada del servidor para el almacenamiento de archivos. Asegúrate de que el directorio de destino exista y tenga permisos de escritura.
+
+
+## Contribuciones
+
+Si encuentras algún problema o tienes alguna mejora, siéntete libre de abrir un problema o enviar una solicitud de extracción.
