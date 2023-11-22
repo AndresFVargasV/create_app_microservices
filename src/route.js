@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const insertarPersona = require('./create.js');
+const {insertarPersona, insertarPersona_logs, checkUser} = require('./create.js');
 const cors = require('cors');
 const multer = require('multer');
 const storage = multer.memoryStorage();
@@ -28,28 +28,29 @@ router.post('/createpeople', cors(), upload.single('foto'), async (req, res) => 
     const foto = req.file;
 
     try {
-        const result = await insertarPersona(primer_nombre,
-            segundo_nombre,
-            apellidos,
-            fecha_nacimiento,
-            genero_id,
-            correo_electronico,
-            celular,
-            numero_documento,
-            tipo_documento,
-            foto);
-
-        if (result === true) {
-            res.status(200).json({
-                "res": "People added successful"
+        
+        if (checkUser(numero_documento)){
+            res.status(503).json({
+                "res": "User already exist"
             });
         } else {
-            res.estatus(503).json({
-                "res": "People added failed"
-            });
+
+            // Llamado a la función que inserta una persona en la colección 'crudmicroservices'
+            const result = await insertarPersona(primer_nombre, segundo_nombre, apellidos, fecha_nacimiento, genero_id,
+                correo_electronico, celular, numero_documento, tipo_documento, foto);
+
+            // Responder con el resultado de la inserción   
+            if (result) {
+                res.status(200).json({
+                    "res": "People added successful"
+                });
+            } else {
+                res.status(503).json({
+                    "res": "People added failed"
+                });
+            }
         }
     } catch (err) {
-        console.error('Error al insertar datos:', err.message);
         res.status(503).json({
             "res": "People added failed"
         });
