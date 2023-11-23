@@ -90,15 +90,13 @@ async function checkUser(dato) {
         const user = await collection.findOne({ 'numero_documento': dato });
 
         // Comprobar si se encontró un usuario
-        if (user) {
-            return true;
-        } else {
+        if (user != null) {
             return false;
+        } else {
+            return true;
         }
     } catch (error) {
-        // Retornar un error
-        console.error(error);
-        return { error: error.message || "Error interno del servidor" };
+        return false;
     } finally {
         if (client) {
             await client.close();
